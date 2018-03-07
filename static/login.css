@@ -1,0 +1,20 @@
+.login_content{
+    width: 800px;
+    height: 450px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 70px 100px 70px 100px;
+}
+.login_name{
+    font-size: 50px;
+}
+.login_input_username{
+    margin-top: 20px;
+}
+.login_input_password{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.error_content{
+    font-size: 20px;
+}

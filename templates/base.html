@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titlename %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'base.css') }}" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% block head_content %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename = 'portrait.png') }}">
+        </div>
+        <div class="name">
+            <a href="#" target="_blank">Albert Musk-BLOG</a>
+        </div>
+        </div>
+    </header>
+    <main>
+        <section>
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+    <footer>
+        <div style="margin:0 auto 10px">
+            <a href="#" target="_blank">
+                <img src="https://png.icons8.com/ios/50/000000/github.png"/>
+            </a>
+        </div>
+        <p>Copyright&copy;2018</p>
+        <p>Designed by <a href="#" target="_blank" style="text-decoration: underline;">Albert Musk</a></p>
+    </footer>
+</body>
+</html>

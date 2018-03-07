@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block titlename %}首页{% endblock %}
+{% block content %}
+    {% for article in articles %}
+        <article>
+            <a href="article/{{ article.id }}/">{{ article.title }}</a>
+            <summary>
+                {{ article.summary }}
+            </summary>
+            <aside>
+                {{ article.aside }}
+                <time>{{ article.create_time|time_cut }}</time>
+            </aside>
+        </article>
+    {% endfor %}
+{% endblock %}

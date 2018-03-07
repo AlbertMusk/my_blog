@@ -1,0 +1,174 @@
+/* reset */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{color:#333;outline:0;}
+body{background:#fff;}
+a,a:hover{color:#333;}
+
+body{
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+header{
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid black;
+}
+header .logo{
+    padding: 20px 0 40px 0;
+}
+header .logo img{
+    width: 8em;
+    height: 8em;
+    border-radius: 100%;
+}
+header .name{
+    position: relative;
+    top: -23px;
+    display: inline;
+    font-weight: 400;
+    font-size: 2em;
+    font-family: 'Dancing Script', cursive;
+    background-color: #FFFFFF;
+    padding: 0 20px;
+    margin: auto;
+}
+header .log_reg a{
+    padding: 50px;
+}
+article{
+    position: relative;
+    max-width: 900px;
+    padding: 10px 0 100px 0;
+    border-bottom: 1px solid aliceblue;
+}
+article a:link{
+    color: black;
+    text-decoration:none;
+}
+article a:visited{
+    color: black;
+    text-decoration: none;
+}
+article a:hover{
+    color: gainsboro;
+    text-decoration:none;
+}
+article a:active{
+    color: #CCCCCC;
+    text-decoration:none;
+}
+article title{
+    display: block;
+    font-size: 3em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+article summary{
+    max-height: 288px;
+    margin: 7px 0 7px 0;
+    overflow: hidden;
+    font-family: 'Noto Sans SC Sliced', sans-serif;
+    font-weight: 100;
+}
+article aside{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-wrap: wrap;
+}
+article aside .block{
+    float: left;
+    width: 1em;
+    height: 1em;
+}
+article aside .tags{
+    display: inline;
+    font-size: 1em;
+}
+article aside .tags img{
+    display: block;
+    float: left;
+    width: 1em;
+    height: 1em;
+}
+article aside .tags .tag{
+    margin-right: 7px;
+}
+article aside .corpus{
+    display: inline;
+    font-size: 1em;
+}
+article aside .corpus img{
+    display: block;
+    float: left;
+    width: 1.4em;
+    height: 1.4em;
+}
+article aside time{
+    display: inline;
+    font-size: 1em;
+    font-weight: 400;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+article aside time img{
+    display: block;
+    float: left;
+    width: 1.3em;
+    height: 1.3em;
+}
+article a{
+    font-size: 35px;
+}
+summary{
+    font-size: 30px;
+}
+footer{
+    text-align: center;
+    padding: 40px;
+    /*-border: 2px solid transparent;
+    border-top-color: aliceblue;*/
+}
+footer img{
+    width: 30px;
+    height: 30px;
+}
+footer p{
+    font-size: 14px;
+}
+@media (min-width: 1300px) {
+    article{
+        margin: auto;
+    }
+}
+@media (max-width: 1300px){
+    article{
+        margin: auto;
+    }
+}
+@media (max-width: 900px) {
+    body{
+        font-size: 17px;
+    }
+    article{
+        margin: 0px 15px;
+    }
+}
