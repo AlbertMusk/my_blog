@@ -38,7 +38,9 @@ def article(index_id):
 
 @app.route('/write/',methods=['GET','POST'])
 def write_article():
-    if 'username' in session:
+    name = session.get('username')
+    usernmae = SuperUser.query.first().username
+    if name == usernmae:
         if request.method == 'GET':
             return render_template('write.html')
         else:
