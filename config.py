@@ -1,9 +1,11 @@
+#encoding:utf-8
 
 import os
 # python相关配置
 DEBUG = True
 TEMPLATE_AUTO_UPDATE = True
 SECRET_KEY = 'Albert_Musk_Blog'
+
 
 # 数据库相关配置
 

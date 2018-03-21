@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 from flask_script import Manager
 from my_blog import app
 from models import SuperUser,Article
