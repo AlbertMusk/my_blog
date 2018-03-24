@@ -57,9 +57,7 @@ def write_article():
                 flask = request.form.get('flask')
                 pachong = request.form.get('pachong')
 
-
-
-                context = '这是测试'
+                context = request.form.get('context')
                 article = Article(title=title, summary=summary, context=context)
 
                 # 判断标签是否为None 如果不为None 则初始化一个Tag对象
@@ -67,7 +65,6 @@ def write_article():
                 if python is not None:
                     python_tag = Tag.query.filter_by(tag_name=python).first()
                     article.tags.append(python_tag)
-                    print(python)
                 if flask is not None:
                     flask_tag = Tag.query.filter_by(tag_name=flask).first()
                     article.tags.append(flask_tag)

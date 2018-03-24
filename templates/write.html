@@ -4,6 +4,7 @@
 
 {% block head_content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'write/write.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'editor.css') }}" />
     <script type="text/javascript" src='//unpkg.com/wangeditor/release/wangEditor.min.js'></script>
     <script type="text/javascript" src='http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js'></script>
 {% endblock %}
@@ -26,7 +27,7 @@
                 </div>
                 <div>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox1" name="python" value="Python">Python
+                        <input type="checkbox" id="inlineCheckbox1" name="python" value="Python" checked="checked">Python
                     </label>
                     <label class="checkbox-inline">
                         <input type="checkbox" id="inlineCheckbox2" name="flask" value="Flask">Flask
@@ -41,16 +42,23 @@
 
         <!-- wangEditor-->
         <div id="editor"></div>
+
         <script type="application/javascript">
+            var ed;
             $(document).ready(function () {
                 var rich_editor = window.wangEditor;
-                var ed = new rich_editor('#editor');
+                ed = new rich_editor('#editor');
                 ed.create();
             })
+            function getContent() {
+               var text = ed.txt.html();
+               document.getElementById('context_id').value = text;
+            }
         </script>
+        <input type="hidden" name="context" id="context_id">
         <!-- wangEditor end-->
         <div class="button-submit">
-            <button type="submit" class="btn btn-default"\>Submit</button>
+            <button type="submit" class="btn btn-default" onclick="getContent()">Submit</button>
         </div>
         <div class="error_content">
             {% if errorname %}

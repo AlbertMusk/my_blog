@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 
 {% block titlename %}{{ articles.title }}{% endblock %}
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='article.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='editor.css') }}">
+{% endblock %}
 
 {% block content %}
     <div class="content">
-        <p><span class="content-title">{{ articles.title }}</span></p>
-        <p><span class="content-title">{{ articles.create_time }}</span></p>
-        <div class="content-detail">
-            {{ articles.context }}
+        <div class="content-title">
+            {{ articles.title }}
         </div>
+        <div class="content-summary">
+            {{ articles.summary }}
+        </div>
+        <div id="content-text">
+        </div>
+
+        <!-- 将后台拿到的context内容放到input里 然后通过javascript拿到value 反转义后放到div中 -->
+        <input type="hidden" value="{{ articles.context }}" id="context_input">
+
     </div>
+    <script type="application/javascript">
+        var context = document.getElementById('context_input').value;
+        document.getElementById('content-text').innerHTML = context
+    </script>
 {% endblock %}
