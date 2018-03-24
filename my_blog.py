@@ -4,6 +4,7 @@ from datetime import datetime
 import config
 from models import SuperUser,Article
 from exts import db
+from forms import LoginForm,WriteForm
 
 
 app = Flask(__name__)
@@ -44,15 +45,22 @@ def write_article():
         if request.method == 'GET':
             return render_template('write.html')
         else:
-            title = request.form.get('title')
-            summary = request.form.get('summary')
-            aside = '这是测试'
-            context = '这是测试'
+            form = WriteForm(request.form)
+            if form.validate():
+                title = form.title.data
+                summary = form.summary.data
 
-            article = Article(title=title,summary=summary,aside=aside,context=context)
-            db.session.add(article)
-            db.session.commit()
-            return redirect(url_for('hello_world'))
+                # aside为分类tag context为内容
+                # 暂无内容
+                aside = '这是测试'
+                context = '这是测试'
+
+                article = Article(title=title,summary=summary,aside=aside,context=context)
+                db.session.add(article)
+                db.session.commit()
+                return redirect(url_for('hello_world'))
+            else:
+                return render_template('write.html',errorname = 1)
     else:
         return redirect(url_for('login'))
 
@@ -62,14 +70,18 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = SuperUser.query.first()
-        if user.username == username and user.password == password:
-            session['username'] = username
-            return redirect(url_for('write_article'))
+        form = LoginForm(request.form)
+        if form.validate():
+            username = form.username.data
+            password = form.password.data
+            user = SuperUser.query.first()
+            if user.username == username and user.password == password:
+                session['username'] = username
+                return redirect(url_for('write_article'))
+            else:
+                return render_template('login.html',equalError = 1)
         else:
-            return render_template('login.html',errorname=1)
+            return render_template('login.html',requiredError=1)
 
 
 if __name__ == '__main__':

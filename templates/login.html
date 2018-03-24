@@ -19,8 +19,10 @@
                 <input type="password" class="form-control" name="password" placeholder="Password" aria-describedby="sizing-addon1">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
-            {% if errorname %}
-                <p><span class="error_content" style="font-size: 20px;">Error:Your username or password is wrong!Please try again</span></p>
+            {% if requiredError %}
+                <p><span class="error_content" style="font-size: 20px;">Error:输入框不能为空，请输入内容！</span></p>
+            {% elif equalError%}
+                <p><span class="error_content" style="font-size: 20px;">Error:用户名或密码不正确，请重试！</span></p>
             {% endif %}
         </div>
     </form>
