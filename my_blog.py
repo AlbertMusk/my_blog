@@ -2,7 +2,7 @@
 from flask import Flask,render_template,url_for,request,redirect,session
 from datetime import datetime
 import config
-from models import SuperUser,Article
+from models import SuperUser,Article,Tag
 from exts import db
 from forms import LoginForm,WriteForm
 
@@ -52,10 +52,29 @@ def write_article():
 
                 # aside为分类tag context为内容
                 # 暂无内容
-                aside = '这是测试'
-                context = '这是测试'
 
-                article = Article(title=title,summary=summary,aside=aside,context=context)
+                python = request.form.get('python')
+                flask = request.form.get('flask')
+                pachong = request.form.get('pachong')
+
+
+
+                context = '这是测试'
+                article = Article(title=title, summary=summary, context=context)
+
+                # 判断标签是否为None 如果不为None 则初始化一个Tag对象
+
+                if python is not None:
+                    python_tag = Tag.query.filter_by(tag_name=python).first()
+                    article.tags.append(python_tag)
+                    print(python)
+                if flask is not None:
+                    flask_tag = Tag.query.filter_by(tag_name=flask).first()
+                    article.tags.append(flask_tag)
+                if pachong is not None:
+                    pachong_tag = Tag.query.filter_by(tag_name=pachong).first()
+                    article.tags.append(pachong_tag)
+
                 db.session.add(article)
                 db.session.commit()
                 return redirect(url_for('hello_world'))
