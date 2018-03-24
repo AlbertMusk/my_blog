@@ -25,7 +25,7 @@ def add_tagname(tagname):
     tag = Tag(tag_name=tagname)
     db.session.add(tag)
     db.session.commit()
-    print('新建%s标签成功' % tagname)
+    print('Done')
 
 @manager.command
 def init():
