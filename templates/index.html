@@ -13,13 +13,13 @@
             <aside>
                 {% for i in article.tags %}
                     {% if i.tag_name == 'Python' %}
-                        <span class="label label-default tags">{{ i.tag_name }}</span>
+                        <span class="label label-default tags"><a href="">{{ i.tag_name }}</a></span>
                     {% endif %}
                     {% if i.tag_name == 'Flask' %}
-                        <span class="label label-primary tags">{{ i.tag_name }}</span>
+                        <span class="label label-primary tags"><a href="">{{ i.tag_name }}</a></span>
                     {% endif %}
                     {% if i.tag_name == '爬虫' %}
-                        <span class="label label-info tags">{{ i.tag_name }}</span>
+                        <span class="label label-info tags"><a href="">{{ i.tag_name }}</a></span>
                     {% endif %}
                 {% endfor %}
 
