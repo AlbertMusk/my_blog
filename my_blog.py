@@ -70,6 +70,7 @@ def write_article():
                     article.tags.append(flask_tag)
                 if pachong is not None:
                     pachong_tag = Tag.query.filter_by(tag_name=pachong).first()
+                    print(pachong)
                     article.tags.append(pachong_tag)
 
                 db.session.add(article)
