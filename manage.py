@@ -2,7 +2,8 @@
 
 from flask_script import Manager
 from my_blog import app
-from models import SuperUser,Article,article_tag,Tag
+from apps.front.models import Article,article_tag,Tag
+from apps.cms.models import SuperUser
 from exts import db
 from flask_migrate import Migrate,MigrateCommand
 
@@ -20,12 +21,6 @@ def add_user(username,password):
     db.session.commit()
     print('超级用户添加完毕')
 
-@manager.option('-t','--tagname',dest='tagname')
-def add_tagname(tagname):
-    tag = Tag(tag_name=tagname)
-    db.session.add(tag)
-    db.session.commit()
-    print('Done')
 
 @manager.command
 def init():

@@ -1,0 +1,76 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}
+    文章管理
+{% endblock %}
+
+{% block header %}
+    <script src="{{ url_for('static',filename='cms/js/add_del_tags.js') }}"></script>
+    <script src="{{ url_for('static',filename='cms/js/del_article.js') }}"></script>
+
+{% endblock %}
+
+{% block main %}
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#banner-dialog">添加文章</button>
+    </div>
+    <table class="table table=bordered">
+        <thead>
+            <tr>
+                <th>标题</th>
+                <th>文章简介</th>
+                <th>文章内容</th>
+                <th>文章标签</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td><a href="#" target="_blank">{{ article.summary }}</a></td>
+                    <td><a href="#" target="_blank">{{ article.context }}</a></td>
+                    <td>
+                        {% for tag in article.tags %}
+                            <a href="" target="_blank">{{ tag }}</a>
+                        {% endfor %}
+
+                    </td>
+                    <td>{{ article.create_time }}</td>
+                    <td>
+                        <button class="btn btn-default btn-xs edit-article-btn" data-id="{{ article.id }}">编辑</button>
+                        <button class="btn btn-danger btn-xs delete-article-btn" data-id="{{ article.id }}">删除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">添加\删除标签</h4>
+          </div>
+          <div class="modal-body">
+            <form action="" class="form-horizontal">
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">标签名称：</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control" name="tag-name" placeholder="标签名称">
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="del-btn">删除</button>
+            <button type="button" class="btn btn-primary" id="save-btn">添加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

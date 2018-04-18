@@ -1,0 +1,30 @@
+{% extends 'front/base.html' %}
+{% block titlename %}首页{% endblock %}
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='front/index.css') }}">
+{% endblock %}
+{% block content %}
+    {% for article in articles %}
+        <article>
+            <a href="article/{{ article.id }}/">{{ article.title }}</a>
+            <summary>
+                {{ article.summary }}
+            </summary>
+            <aside>
+                {% for i in article.tags %}
+                    {% if i.tag_name == 'python' %}
+                        <span class="label label-default tags py-tag"><a href="">{{ i.tag_name }}</a></span>
+                    {% endif %}
+                    {% if i.tag_name == 'flask' %}
+                        <span class="label label-primary tags f-tag"><a href="">{{ i.tag_name }}</a></span>
+                    {% endif %}
+                    {% if i.tag_name == '爬虫' %}
+                        <span class="label label-info tags wc-tag"><a href="">{{ i.tag_name }}</a></span>
+                    {% endif %}
+                {% endfor %}
+
+                <time>{{ article.create_time|time_cut }}</time>
+            </aside>
+        </article>
+    {% endfor %}
+{% endblock %}

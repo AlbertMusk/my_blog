@@ -1,0 +1,72 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}
+    标签管理
+{% endblock %}
+
+{% block header %}
+    <script src="{{ url_for('static',filename='cms/js/save_tag.js') }}"></script>
+    <script src="{{ url_for('static',filename='cms/js/deltag.js') }}"></script>
+
+{% endblock %}
+
+{% block main %}
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#myModal">添加标签</button>
+    </div>
+    <table class="table table=bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>标签名称</th>
+                <th>标签关联文章</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+                <tr>
+                    <td id="tag-id">{{ tag.id }}</td>
+                    <td><a href="#" target="_blank">{{ tag.tag_name }}</a></td>
+                    <td>
+                        {% for article in tag.articles %}
+                            <a href="#" target="_blank">{{ article }}</a>
+                        {% endfor %}
+                    </td>
+                    <td>{{ tag.create_time }}</td>
+                    <td>
+                        <button class="btn btn-default btn-xs" id="edit-tag-btn">编辑</button>
+                        <button class="btn btn-danger btn-xs delete-tag-btn" data-id="{{ tag.id }}">删除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">添加标签</h4>
+          </div>
+          <div class="modal-body">
+            <form action="" class="form-horizontal">
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">名称：</label>
+                      <div class="col-sm-10">
+                          <input type="text" class="form-control" name="tag-name" placeholder="标签名称">
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="save-btn">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

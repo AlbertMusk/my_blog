@@ -1,0 +1,16 @@
+body{
+    padding-top: 50px;
+    /*overflow: hidden;*/
+}
+.main-container{
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+.top-box{
+    overflow: hidden;
+}
+.top-box button{
+    float: right;
+}

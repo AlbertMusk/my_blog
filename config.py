@@ -6,6 +6,8 @@ DEBUG = True
 TEMPLATE_AUTO_UPDATE = True
 SECRET_KEY = 'Albert_Musk_Blog'
 
+CMSUSER_ID = '1234aaa'
+
 
 # 数据库相关配置
 

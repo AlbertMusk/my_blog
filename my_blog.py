@@ -2,21 +2,23 @@
 from flask import Flask,render_template,url_for,request,redirect,session
 from datetime import datetime
 import config
-from models import SuperUser,Article,Tag
+from apps.front.models import Article,Tag
 from exts import db
 from forms import LoginForm,WriteForm
+from apps.front import bp as front_bp
+from apps.cms import bp as cms_bp
+from flask_wtf import CSRFProtect
+from apps.cms.models import SuperUser
 
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
+app.register_blueprint(front_bp)
+app.register_blueprint(cms_bp)
 
-@app.route('/')
-def hello_world():
-    context = {
-        'articles':Article.query.order_by(Article.create_time.desc()).all()
-    }
-    return render_template('index.html',**context)
+CSRFProtect(app)
+
 
 @app.template_filter('time_cut')
 def timecut(time):
@@ -32,74 +34,68 @@ def timecut(time):
 
 @app.route('/article/<index_id>/')
 def article(index_id):
-    context = {
-        'articles': Article.query.filter(Article.id == index_id).first()
-    }
-    return render_template('article.html',**context)
+    article = Article.query.get(index_id)
+    return render_template('front/article.html', article=article)
 
 @app.route('/write/',methods=['GET','POST'])
 def write_article():
-    name = session.get('username')
-    usernmae = SuperUser.query.first().username
-    if name == usernmae:
-        if request.method == 'GET':
-            return render_template('write.html')
-        else:
-            form = WriteForm(request.form)
-            if form.validate():
-                title = form.title.data
-                summary = form.summary.data
-
-                # aside为分类tag context为内容
-                # 暂无内容
-
-                python = request.form.get('python')
-                flask = request.form.get('flask')
-                pachong = request.form.get('pachong')
-
-                context = request.form.get('context')
-                article = Article(title=title, summary=summary, context=context)
-
-                # 判断标签是否为None 如果不为None 则初始化一个Tag对象
-
-                if python is not None:
-                    python_tag = Tag.query.filter_by(tag_name=python).first()
-                    article.tags.append(python_tag)
-                if flask is not None:
-                    flask_tag = Tag.query.filter_by(tag_name=flask).first()
-                    article.tags.append(flask_tag)
-                if pachong is not None:
-                    pachong_tag = Tag.query.filter_by(tag_name=pachong).first()
-                    print(pachong)
-                    article.tags.append(pachong_tag)
-
-                db.session.add(article)
-                db.session.commit()
-                return redirect(url_for('hello_world'))
-            else:
-                return render_template('write.html',errorname = 1)
-    else:
-        return redirect(url_for('login'))
-
-
-@app.route('/login/',methods=['GET','POST'])
-def login():
+    tags = Tag.query.all()
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('front/write.html',tags=tags)
     else:
-        form = LoginForm(request.form)
+        form = WriteForm(request.form)
         if form.validate():
-            username = form.username.data
-            password = form.password.data
-            user = SuperUser.query.first()
-            if user.username == username and user.password == password:
-                session['username'] = username
-                return redirect(url_for('write_article'))
-            else:
-                return render_template('login.html',equalError = 1)
+            title = form.title.data
+            summary = form.summary.data
+
+            # aside为分类tag context为内容
+            # 暂无内容
+
+            python = request.form.get('python')
+            flask = request.form.get('flask')
+            pachong = request.form.get('pachong')
+
+            context = request.form.get('context')
+            article = Article(title=title, summary=summary, context=context)
+
+            # 判断标签是否为None 如果不为None 则初始化一个Tag对象
+
+            if python is not None:
+                python_tag = Tag.query.filter_by(tag_name=python).first()
+                article.tags.append(python_tag)
+            if flask is not None:
+                flask_tag = Tag.query.filter_by(tag_name=flask).first()
+                article.tags.append(flask_tag)
+            if pachong is not None:
+                pachong_tag = Tag.query.filter_by(tag_name=pachong).first()
+                print(pachong)
+                article.tags.append(pachong_tag)
+
+            db.session.add(article)
+            db.session.commit()
+            return redirect(url_for('front.index'))
         else:
-            return render_template('login.html',requiredError=1)
+            return render_template('front/write.html', errorname = 1,tags=tags)
+
+
+# @app.route('/login/',methods=['GET','POST'])
+# def login():
+#     if request.method == 'GET':
+#         return render_template('login.html')
+#     else:
+#         form = LoginForm(request.form)
+#         if form.validate():
+#             username = form.username.data
+#             password = form.password.data
+#             user = SuperUser.query.first()
+#             if user.username == username and user.password == password:
+#                 session['username'] = username
+#                 return redirect(url_for('write_article'))
+#             else:
+#                 return render_template('login.html',equalError = 1)
+#         else:
+#             return render_template('login.html',requiredError=1)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8888)
