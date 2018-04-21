@@ -24,10 +24,9 @@ $(function () {
         console.log(tags);
 
 
-        var context = testEditor.getMarkdown();
-
+        // var context = testEditor.getMarkdown();
+        var context = testEditor.getHTML();
         zlajax.post({
-            'content-type':json,
             'url': '/cms/earticle/',
             'data': {
                 'title': title,

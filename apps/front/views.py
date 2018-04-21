@@ -3,7 +3,6 @@
 
 from flask import Blueprint,render_template,views,request,session,redirect,url_for
 from .models import Article
-from forms import LoginForm
 
 bp = Blueprint('front',__name__)
 
@@ -15,12 +14,7 @@ def index():
     return render_template('front/index.html', **context)
 
 
-@bp.route('/writearticle/')
-def writearticle():
-    return render_template('front/demo.html')
-
-
-@bp.route('/show/')
-def show():
-    return render_template('front/showhtml.html')
-
+@bp.route('/article/<article_id>/')
+def article(article_id):
+    article = Article.query.get(article_id)
+    return render_template('front/article.html',article=article)
